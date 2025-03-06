@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Gym Tracking Management</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.4.4/build/qrcode.min.js"></script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <nav>
+      <div class="logo">
+        <h1>GymTrack</h1>
+      </div>
+      <ul>
+        <li><a href="signup.html">Sign Up</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Login Form -->
+  <section class="auth-form">
+    <h2>Login to Your Account</h2>
+    <form id="loginForm" action="/api/auth/login" method="POST">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+      </div>
+
+      <button type="submit" class="btn">Login</button>
+
+      <div class="form-footer">
+        <a href="#">Forgot Password?</a>
+      </div>
+    </form>
+
+    <div class="qr-login">
+      <h3>Or login with QR Code</h3>
+      <div id="qrcode"></div>
+      <p>Scan this QR Code using your mobile app to sign in.</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 GymTrack. All rights reserved.</p>
+  </footer>
+
+  <script src="js/login.js"></script>
+  <script>
+    // Generate QR code for login
+    const generateQRCode = () => {
+      const userToken = "temporary_login_token_12345"; // You would normally generate this dynamically in your backend
+      const loginURL = `${window.location.origin}/api/auth/qr-login?token=${userToken}`;
+      QRCode.toCanvas(document.getElementById('qrcode'), loginURL, function (error) {
+        if (error) console.error(error);
+      });
+    };
+
+    generateQRCode();
+  </script>
+</body>
+</html>
